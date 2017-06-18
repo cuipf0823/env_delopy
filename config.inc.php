@@ -1,62 +1,26 @@
 <?php
-/* vim: set expandtab sw=4 ts=4 sts=4: */
-/**
- * phpMyAdmin sample configuration, you can use it as base for
- * manual configuration. For easier setup you can use setup/
- *
- * All directives are explained in documentation in the doc/ folder
- * or at <http://docs.phpmyadmin.net/>.
- *
- * @package PhpMyAdmin
- */
-
-$cfg['PmaAbsoluteUri'] = 'http://10.0.1.201:8385/phpmyadmin/';
-/*
- * This is needed for cookie based authentication to encrypt password in
- * cookie
- */
-$cfg['blowfish_secret'] = 'ad3b2c3'; /* YOU MUST FILL IN THIS FOR COOKIE AUTH! */
-
-/*
- * Servers configuration
- */
+$cfg['blowfish_secret'] = 'ad3b2c3';
 $i = 0;
-
-/*
- * First server
- */
 $i++;
-/* Authentication type */
+$cfg['UploadDir'] = '';
+$cfg['SaveDir'] = '';
+$cfg['DefaultLang'] = 'zh';
 $cfg['Servers'][$i]['auth_type'] = 'cookie';
-/* Server parameters */
-$cfg['Servers'][$i]['host'] = '';
 $cfg['Servers'][$i]['connect_type'] = 'tcp';
 $cfg['Servers'][$i]['compress'] = false;
 $cfg['Servers'][$i]['AllowNoPassword'] = false;
 
-/**
- * MySQL user
- *
- * @global string $cfg['Servers'][$i]['user']
- */
-$cfg['Servers'][$i]['user'] = 'root';
 
-/**
- * MySQL password (only needed with 'config' auth_type)
- *
- * @global string $cfg['Servers'][$i]['password']
- */
-$cfg['Servers'][$i]['password'] = '123456';
 
-/*
- * phpMyAdmin configuration storage settings.
- */
-
-/* User used to manipulate with storage */
-$cfg['Servers'][$i]['controlhost'] = '';
-$cfg['Servers'][$i]['controlport'] = '';
-$cfg['Servers'][$i]['controluser'] = 'root';
-$cfg['Servers'][$i]['controlpass'] = '123456';
+# config this by shell
+# $cfg['PmaAbsoluteUri'] = 'http://10.0.1.201:8385/phpmyadmin/';
+# $cfg['Servers'][$i]['host'] = '';
+# $cfg['Servers'][$i]['user'] = 'root';
+# $cfg['Servers'][$i]['password'] = '123456';
+# $cfg['Servers'][$i]['controlhost'] = '';
+# $cfg['Servers'][$i]['controlport'] = '';
+# $cfg['Servers'][$i]['controluser'] = 'root';
+# $cfg['Servers'][$i]['controlpass'] = '123456';
 
 /* Storage database and tables */
 // $cfg['Servers'][$i]['pmadb'] = 'phpmyadmin';
@@ -79,8 +43,4 @@ $cfg['Servers'][$i]['controlpass'] = '123456';
 // $cfg['Servers'][$i]['savedsearches'] = 'pma__savedsearches';
 /* Contrib / Swekey authentication */
 // $cfg['Servers'][$i]['auth_swekey_config'] = '/etc/swekey-pma.conf';
-$cfg['UploadDir'] = '';
-$cfg['SaveDir'] = '';
-$cfg['DefaultLang'] = 'zh';
-
 ?>
