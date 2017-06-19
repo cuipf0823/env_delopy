@@ -11,10 +11,11 @@ MYSQL_DOWNLOAD_URL=https://repo.mysql.com//mysql-apt-config_0.8.6-1_all.deb
 MYSQL_IP=''
 # Usually will not change
 MYSQL_PORT='3306'
+# root account
 MYSQL_USER='root'
 MYSQL_PWD='123456'
 PHPMYADMIN_URL='http://10.1.1.1/phpmyadmin/'
-PMA_CONFIG_FILE=config.inc.php
+PMA_CONFIG_FILE=./config.inc.php
 PMA_CONFIG_PATH=/etc/phpmyadmin/config.inc.php
 
 os_str=$(lsb_release -i | awk  '{print $3}')
@@ -55,6 +56,10 @@ fi
 # mysql config
 \cp ./my.cnf /etc/my.cnf
 
+# modify permission
+mysql -u$MYSQL_USER -p$MYSQL_PWD -e "GRANT all on *.* to $MYSQL_USER@'%' identified by \"$MYSQL_PWD\";"
+echo "mysql install completely!"
+
 # install apache2
 if [[ x$(whereis apache2) = x"apache2:" ]]; then
   apt-get install -y apache2
@@ -91,8 +96,9 @@ set_value()
   fi
 	return 0
 }
+
 end_file='?>'
-sed -i '' "/^$end_file/d" $PMA_CONFIG_FILE
+sed -i "/^$end_file/d" $PMA_CONFIG_FILE
 set_value "\$cfg['PmaAbsoluteUri']" $PHPMYADMIN_URL
 set_value "\$cfg['Servers'][\$i]['host']" $MYSQL_IP
 set_value "\$cfg['Servers'][\$i]['user']" $MYSQL_USER
@@ -100,9 +106,10 @@ set_value "\$cfg['Servers'][\$i]['password']" $MYSQL_PWD
 
 set_value "\$cfg['Servers'][\$i]['controlhost']" $MYSQL_IP
 set_value "\$cfg['Servers'][\$i]['controluser']" $MYSQL_USER
-set_value "\$cfg['Servers'][\$i]['controlpassword']" $MYSQL_PWD
+set_value "\$cfg['Servers'][\$i]['controlpass']" $MYSQL_PWD
 echo $end_file >> $PMA_CONFIG_FILE
 
 \cp $PMA_CONFIG_FILE $PMA_CONFIG_PATH
 
+echo "install completely !!!"
 exit 0

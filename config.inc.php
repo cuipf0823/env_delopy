@@ -9,9 +9,6 @@ $cfg['Servers'][$i]['auth_type'] = 'cookie';
 $cfg['Servers'][$i]['connect_type'] = 'tcp';
 $cfg['Servers'][$i]['compress'] = false;
 $cfg['Servers'][$i]['AllowNoPassword'] = false;
-
-
-
 # config this by shell
 # $cfg['PmaAbsoluteUri'] = 'http://10.0.1.201:8385/phpmyadmin/';
 # $cfg['Servers'][$i]['host'] = '';
@@ -21,7 +18,6 @@ $cfg['Servers'][$i]['AllowNoPassword'] = false;
 # $cfg['Servers'][$i]['controlport'] = '';
 # $cfg['Servers'][$i]['controluser'] = 'root';
 # $cfg['Servers'][$i]['controlpass'] = '123456';
-
 /* Storage database and tables */
 // $cfg['Servers'][$i]['pmadb'] = 'phpmyadmin';
 // $cfg['Servers'][$i]['bookmarktable'] = 'pma__bookmark';
@@ -43,4 +39,5 @@ $cfg['Servers'][$i]['AllowNoPassword'] = false;
 // $cfg['Servers'][$i]['savedsearches'] = 'pma__savedsearches';
 /* Contrib / Swekey authentication */
 // $cfg['Servers'][$i]['auth_swekey_config'] = '/etc/swekey-pma.conf';
+
 ?>
