@@ -16,6 +16,7 @@ save 60 10000
 
 ## AOF持久化配置
 和AOF持久化相关的配置
+
 ```
 #AOF 和 RDB 持久化方式可以同时启动并且无冲突。  
 #如果AOF开启，启动redis时会加载aof文件，这些文件能够提供更好的保证
@@ -43,6 +44,60 @@ auto-aof-rewrite-min-size 64mb
 ## 持久化配置总结
 
 持久化方式采用RDB模式和AOF模式相结合方式;
+
+## 主从复制配置
+### 环境
+* master redis
+
+```
+ip : 10.211.55.5
+port: 6379
+```
+
+* slave redis
+
+```
+ip : 10.211.55.6
+port: 6379
+```
+
+### 命令模式
+
+* master redis正常启动;
+
+```
+redis-server /etc/redis/redis.conf
+```
+
+* slave redis 启动;
+
+```
+redis-server /etc/redis/redis.conf
+```
+
+* 分别使用redis-cli 执行**info replication**查看配置是否成功;
+
+**master:**
+![master配置成功](http://oaco4iuuu.bkt.clouddn.com/master_redis_info_replication.png)
+
+**slave:**
+![slave配置成功](http://oaco4iuuu.bkt.clouddn.com/redis_info_replication.png)
+
+### 配置文件模式
+只需要在从数据库的配置文件中添加 **slaveof 10.211.55.5 6379** 即可;
+
+### 注意事项
+如果配置完成, 查看配置状态出现 **master\_link\_status:down**; 
+可能的原因有以下几个:
+
+1. 主从机器防火墙没有关闭;
+2. 主从使用的redis版本不一致;
+3. 主设置密码情况下, 主从建立也会失败, 查看日志如下: 
+
+> 解决方式: 在从配置文件加上配置项 **masterauth 123456**即可('123456'为主的auth密码); 
+ 
+![redis日志错误](http://oaco4iuuu.bkt.clouddn.com/%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E9%94%99%E8%AF%AF.png)
+
 
 # 修改项
 * `bind 192.168.154.128` 修改绑定的IP地址;
